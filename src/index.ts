@@ -1,7 +1,5 @@
-import express from 'express';
+import { app } from './App';
 
-import './database';
+const port = process.env.PORT || 3333;
 
-const app = express();
-
-app.listen(3333, () => console.log('Servidor iniciado!'));
+app.listen(port, () => console.log('Server started!'));

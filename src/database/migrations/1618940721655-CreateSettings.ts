@@ -22,12 +22,12 @@ export class CreateSettings1618940721655 implements MigrationInterface {
                     },
                     {
                         name: 'created_at',
-                        type: 'timestamptz',
+                        type: 'timestamp',
                         default: 'now()'
                     },
                     {
                         name: 'updated_at',
-                        type: 'timestamptz',
+                        type: 'timestamp',
                         default: 'now()'
                     }
                 ]
