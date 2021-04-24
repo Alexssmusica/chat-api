@@ -28,19 +28,20 @@ io.on('connect', (socket) => {
             userId = user.id;
         } else {
             userId = userExists.id;
+
             const connection = await connectionsService.findByUserId(userExists.id);
 
             if (!connection) {
                 await connectionsService.create({ socketId, userId: userExists.id });
             } else {
                 connection.socketId = socketId;
+
                 await connectionsService.create(connection);
             }
         }
 
-        await messagesService.create({
-            text,
-            userId
-        });
+        await messagesService.create({ text, userId });
+
+        console.log('Email: ', email, '- Message: ', text);
     });
 });
