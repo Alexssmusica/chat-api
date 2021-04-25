@@ -1,5 +1,5 @@
 import { getCustomRepository, Repository } from 'typeorm';
-import { Connection } from '../entities/Connection';
+import { ConnectionEntity } from '../entities/ConnectionEntity';
 import { ConnectionsRepository } from '../repositories/ConnectionsRepository';
 
 interface IConnectionsCreate {
@@ -10,7 +10,7 @@ interface IConnectionsCreate {
 }
 
 class ConnectionsService {
-    private connectionsRepository: Repository<Connection>;
+    private connectionsRepository: Repository<ConnectionEntity>;
 
     constructor() {
         this.connectionsRepository = getCustomRepository(ConnectionsRepository);
@@ -30,9 +30,19 @@ class ConnectionsService {
     }
 
     async findByUserId(userId: string) {
-        const connection = await this.connectionsRepository.findOne({
-            userId
-        });
+        const connection = await this.connectionsRepository.findOne({ userId });
+
+        return connection;
+    }
+
+    async findAllWithoutAdmin() {
+        const connection = await this.connectionsRepository.find({ where: { adminId: null }, relations: ['user'] });
+
+        return connection;
+    }
+
+    async findBySocketId(socketId: string) {
+        const connection = await this.connectionsRepository.findOne({ socketId });
 
         return connection;
     }
