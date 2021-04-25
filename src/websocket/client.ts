@@ -46,7 +46,8 @@ io.on('connect', (socket) => {
 
         socket.emit('client_list_all_messages', allMessages);
 
-        console.log('Email: ', email, '- Message: ', text);
+        const allUsers = await connectionsService.findAllWithoutAdmin();
+        io.emit('admin_list_all_users', allUsers);
     });
 
     socket.on('client_send_to_admin', async (params) => {
